@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EA4D56A5-AF4A-40E4-892F-1DAC9FE8E4FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Labo.TwitterMiner.Video</RootNamespace>
+    <AssemblyName>Labo.TwitterMiner.Video</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Extended">
+      <HintPath>..\packages\EntityFramework.Extended.5.0.0.73\lib\net45\EntityFramework.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Labo.Common, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Labo.Commons.0.1.9\lib\net45\Labo.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Labo.Common.Data">
+      <HintPath>..\packages\Labo.Commons.Data.0.2.0\lib\net45\Labo.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Labo.Common.Data.EntityFramework">
+      <HintPath>..\packages\Labo.Common.Data.EntityFramework.0.1.0\lib\net45\Labo.Common.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Labo.Common.DomainModel">
+      <HintPath>..\packages\Labo.Commons.DomainModel.0.1.4\lib\net45\Labo.Common.DomainModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Labo.Common.Ioc">
+      <HintPath>..\packages\Labo.Commons.Ioc.0.1.8\lib\net45\Labo.Common.Ioc.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Content.cs">
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ContentCategory.cs">
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ContentCategory_Mapping.cs">
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ContentTag.cs">
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ContentTag_Mapping.cs">
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Content_Mapping.cs">
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoContent.cs">
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoContent_Mapping.cs">
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoDbContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VideoDbContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoDbContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VideoDbContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoDbContext.Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoDbContext.Mapping.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoProvider.cs">
+      <DependentUpon>VideoDbContext.Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\VideoProvider_Mapping.cs">
+      <DependentUpon>VideoDbContext.Mapping.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TwitterVideoPersistenceProcessor.cs" />
+    <Compile Include="TwitterMinerVideoModule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Data\VideoDbContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>VideoDbContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\VideoDbContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VideoDbContext.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Data\VideoDbContext.Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VideoDbContext.Entities.cs</LastGenOutput>
+    </None>
+    <None Include="Data\VideoDbContext.Mapping.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VideoDbContext.Mapping.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Labo.TwitterMiner\Labo.TwitterMiner.csproj">
+      <Project>{DC1DBF2F-E7A8-496F-B003-B689466965DB}</Project>
+      <Name>Labo.TwitterMiner</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Labo.Video\Labo.Video.csproj">
+      <Project>{912D4FED-193F-4A5A-8BE2-6E0E89C38866}</Project>
+      <Name>Labo.Video</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

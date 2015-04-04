@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Labo.TwitterMiner.Video.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="LaboTwitterMinerVideoDataStoreContainer">
+          <EntitySet Name="Content" EntityType="Labo.TwitterMiner.Video.Data.Store.Content" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ContentCategory" EntityType="Labo.TwitterMiner.Video.Data.Store.ContentCategory" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ContentTag" EntityType="Labo.TwitterMiner.Video.Data.Store.ContentTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ContentToTag" EntityType="Labo.TwitterMiner.Video.Data.Store.ContentToTag" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="VideoContent" EntityType="Labo.TwitterMiner.Video.Data.Store.VideoContent" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="VideoProvider" EntityType="Labo.TwitterMiner.Video.Data.Store.VideoProvider" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_content_contentcategory" Association="Labo.TwitterMiner.Video.Data.Store.FK_content_contentcategory">
+            <End Role="ContentCategory" EntitySet="ContentCategory" />
+            <End Role="Content" EntitySet="Content" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentCategory_ContentCategory" Association="Labo.TwitterMiner.Video.Data.Store.FK_ContentCategory_ContentCategory">
+            <End Role="ContentCategory" EntitySet="ContentCategory" />
+            <End Role="ContentCategory1" EntitySet="ContentCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentToTag_content" Association="Labo.TwitterMiner.Video.Data.Store.FK_ContentToTag_content">
+            <End Role="Content" EntitySet="Content" />
+            <End Role="ContentToTag" EntitySet="ContentToTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentToTag_ContentTag" Association="Labo.TwitterMiner.Video.Data.Store.FK_ContentToTag_ContentTag">
+            <End Role="ContentTag" EntitySet="ContentTag" />
+            <End Role="ContentToTag" EntitySet="ContentToTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoContent_Content" Association="Labo.TwitterMiner.Video.Data.Store.FK_VideoContent_Content">
+            <End Role="Content" EntitySet="Content" />
+            <End Role="VideoContent" EntitySet="VideoContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoContent_VideoProvider" Association="Labo.TwitterMiner.Video.Data.Store.FK_VideoContent_VideoProvider">
+            <End Role="VideoProvider" EntitySet="VideoProvider" />
+            <End Role="VideoContent" EntitySet="VideoContent" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="MetaDescription" Type="varchar" MaxLength="500" />
+          <Property Name="MetaKeywords" Type="varchar" MaxLength="500" />
+          <Property Name="UserFriendlyUrl" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ViewPath" Type="varchar" MaxLength="500" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="Rating" Type="float" />
+          <Property Name="VoteCount" Type="bigint" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="IsPublished" Type="bit" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="ContentCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="80" />
+          <Property Name="UserFriendlyUrl" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="80" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContentTag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ContentToTag">
+          <Key>
+            <PropertyRef Name="ContentID" />
+            <PropertyRef Name="TagID" />
+          </Key>
+          <Property Name="ContentID" Type="int" Nullable="false" />
+          <Property Name="TagID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VideoContent">
+          <Key>
+            <PropertyRef Name="ContentID" />
+          </Key>
+          <Property Name="ContentID" Type="int" Nullable="false" />
+          <Property Name="ProviderID" Type="int" />
+          <Property Name="EmbedUrl" Type="varchar" MaxLength="2048" />
+          <Property Name="ProviderViewCount" Type="bigint" />
+          <Property Name="ProviderRating" Type="float" />
+          <Property Name="ProviderUniqueID" Type="varchar" MaxLength="100" />
+          <Property Name="Duration" Type="int" />
+          <Property Name="Author" Type="varchar" MaxLength="150" />
+          <Property Name="Uploader" Type="varchar" MaxLength="150" />
+          <Property Name="BigPicture" Type="varchar" MaxLength="2048" />
+          <Property Name="SmallPicture" Type="varchar" MaxLength="2048" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ProviderVoteCount" Type="int" />
+        </EntityType>
+        <EntityType Name="VideoProvider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="150" />
+          <Property Name="EmbedVideoFormat" Type="varchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_content_contentcategory">
+          <End Role="ContentCategory" Type="Labo.TwitterMiner.Video.Data.Store.ContentCategory" Multiplicity="0..1" />
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Store.Content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContentCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Content">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentCategory_ContentCategory">
+          <End Role="ContentCategory" Type="Labo.TwitterMiner.Video.Data.Store.ContentCategory" Multiplicity="0..1" />
+          <End Role="ContentCategory1" Type="Labo.TwitterMiner.Video.Data.Store.ContentCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContentCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContentCategory1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentToTag_content">
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Store.Content" Multiplicity="1" />
+          <End Role="ContentToTag" Type="Labo.TwitterMiner.Video.Data.Store.ContentToTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Content">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContentToTag">
+              <PropertyRef Name="ContentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentToTag_ContentTag">
+          <End Role="ContentTag" Type="Labo.TwitterMiner.Video.Data.Store.ContentTag" Multiplicity="1" />
+          <End Role="ContentToTag" Type="Labo.TwitterMiner.Video.Data.Store.ContentToTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContentTag">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContentToTag">
+              <PropertyRef Name="TagID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoContent_Content">
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Store.Content" Multiplicity="1" />
+          <End Role="VideoContent" Type="Labo.TwitterMiner.Video.Data.Store.VideoContent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Content">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VideoContent">
+              <PropertyRef Name="ContentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoContent_VideoProvider">
+          <End Role="VideoProvider" Type="Labo.TwitterMiner.Video.Data.Store.VideoProvider" Multiplicity="0..1" />
+          <End Role="VideoContent" Type="Labo.TwitterMiner.Video.Data.Store.VideoContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoProvider">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VideoContent">
+              <PropertyRef Name="ProviderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Labo.TwitterMiner.Video.Data" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HobbiesEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Contents" EntityType="Labo.TwitterMiner.Video.Data.Content" />
+          <EntitySet Name="ContentCategories" EntityType="Labo.TwitterMiner.Video.Data.ContentCategory" />
+          <EntitySet Name="ContentTags" EntityType="Labo.TwitterMiner.Video.Data.ContentTag" />
+          <EntitySet Name="VideoContents" EntityType="Labo.TwitterMiner.Video.Data.VideoContent" />
+          <EntitySet Name="VideoProviders" EntityType="Labo.TwitterMiner.Video.Data.VideoProvider" />
+          <AssociationSet Name="FK_content_contentcategory" Association="Labo.TwitterMiner.Video.Data.FK_content_contentcategory">
+            <End Role="ContentCategory" EntitySet="ContentCategories" />
+            <End Role="Content" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoContent_Content" Association="Labo.TwitterMiner.Video.Data.FK_VideoContent_Content">
+            <End Role="Content" EntitySet="Contents" />
+            <End Role="VideoContent" EntitySet="VideoContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContentCategory_ContentCategory" Association="Labo.TwitterMiner.Video.Data.FK_ContentCategory_ContentCategory">
+            <End Role="ContentCategory" EntitySet="ContentCategories" />
+            <End Role="ContentCategory1" EntitySet="ContentCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VideoContent_VideoProvider" Association="Labo.TwitterMiner.Video.Data.FK_VideoContent_VideoProvider">
+            <End Role="VideoProvider" EntitySet="VideoProviders" />
+            <End Role="VideoContent" EntitySet="VideoContents" />
+          </AssociationSet>
+          <AssociationSet Name="ContentToTag" Association="Labo.TwitterMiner.Video.Data.ContentToTag">
+            <End Role="Content" EntitySet="Contents" />
+            <End Role="ContentTag" EntitySet="ContentTags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Content">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="true" />
+          <Property Name="MetaDescription" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="MetaKeywords" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="UserFriendlyUrl" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="ViewPath" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="Rating" Type="Double" />
+          <Property Name="VoteCount" Type="Int64" />
+          <Property Name="CreateDate" Type="DateTime" />
+          <Property Name="IsPublished" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="ContentCategory" Relationship="Labo.TwitterMiner.Video.Data.FK_content_contentcategory" FromRole="Content" ToRole="ContentCategory" />
+          <NavigationProperty Name="VideoContent" Relationship="Labo.TwitterMiner.Video.Data.FK_VideoContent_Content" FromRole="Content" ToRole="VideoContent" />
+          <NavigationProperty Name="ContentTags" Relationship="Labo.TwitterMiner.Video.Data.ContentToTag" FromRole="Content" ToRole="ContentTag" />
+        </EntityType>
+        <EntityType Name="ContentCategory">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="80" Unicode="false" FixedLength="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contents" Relationship="Labo.TwitterMiner.Video.Data.FK_content_contentcategory" FromRole="ContentCategory" ToRole="Content" />
+          <NavigationProperty Name="ContentCategory1" Relationship="Labo.TwitterMiner.Video.Data.FK_ContentCategory_ContentCategory" FromRole="ContentCategory" ToRole="ContentCategory1" />
+          <NavigationProperty Name="ContentCategory2" Relationship="Labo.TwitterMiner.Video.Data.FK_ContentCategory_ContentCategory" FromRole="ContentCategory1" ToRole="ContentCategory" />
+          <Property Type="String" Name="UserFriendlyUrl" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ContentTag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Contents" Relationship="Labo.TwitterMiner.Video.Data.ContentToTag" FromRole="ContentTag" ToRole="Content" />
+        </EntityType>
+        <EntityType Name="VideoContent">
+          <Key>
+            <PropertyRef Name="ContentID" />
+          </Key>
+          <Property Name="ContentID" Type="Int32" Nullable="false" />
+          <Property Name="ProviderID" Type="Int32" />
+          <Property Name="EmbedUrl" Type="String" MaxLength="2048" Unicode="false" FixedLength="false" />
+          <Property Name="ProviderViewCount" Type="Int64" />
+          <Property Name="ProviderRating" Type="Double" />
+          <Property Name="ProviderUniqueID" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Duration" Type="Int32" />
+          <Property Name="Author" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="Uploader" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="BigPicture" Type="String" MaxLength="2048" Unicode="false" FixedLength="false" />
+          <Property Name="SmallPicture" Type="String" MaxLength="2048" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ProviderVoteCount" Type="Int32" />
+          <NavigationProperty Name="Content" Relationship="Labo.TwitterMiner.Video.Data.FK_VideoContent_Content" FromRole="VideoContent" ToRole="Content" />
+          <NavigationProperty Name="VideoProvider" Relationship="Labo.TwitterMiner.Video.Data.FK_VideoContent_VideoProvider" FromRole="VideoContent" ToRole="VideoProvider" />
+        </EntityType>
+        <EntityType Name="VideoProvider">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="EmbedVideoFormat" Type="String" Nullable="false" MaxLength="500" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="VideoContents" Relationship="Labo.TwitterMiner.Video.Data.FK_VideoContent_VideoProvider" FromRole="VideoProvider" ToRole="VideoContent" />
+        </EntityType>
+        <Association Name="FK_content_contentcategory">
+          <End Role="ContentCategory" Type="Labo.TwitterMiner.Video.Data.ContentCategory" Multiplicity="0..1" />
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Content" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContentCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Content">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoContent_Content">
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Content" Multiplicity="1" />
+          <End Role="VideoContent" Type="Labo.TwitterMiner.Video.Data.VideoContent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Content">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VideoContent">
+              <PropertyRef Name="ContentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContentCategory_ContentCategory">
+          <End Role="ContentCategory" Type="Labo.TwitterMiner.Video.Data.ContentCategory" Multiplicity="0..1" />
+          <End Role="ContentCategory1" Type="Labo.TwitterMiner.Video.Data.ContentCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ContentCategory">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ContentCategory1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VideoContent_VideoProvider">
+          <End Role="VideoProvider" Type="Labo.TwitterMiner.Video.Data.VideoProvider" Multiplicity="0..1" />
+          <End Role="VideoContent" Type="Labo.TwitterMiner.Video.Data.VideoContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VideoProvider">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VideoContent">
+              <PropertyRef Name="ProviderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ContentToTag">
+          <End Role="Content" Type="Labo.TwitterMiner.Video.Data.Content" Multiplicity="*" />
+          <End Role="ContentTag" Type="Labo.TwitterMiner.Video.Data.ContentTag" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LaboTwitterMinerVideoDataStoreContainer" CdmEntityContainer="HobbiesEntities">
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="Labo.TwitterMiner.Video.Data.Content">
+              <MappingFragment StoreEntitySet="Content">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+                <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
+                <ScalarProperty Name="UserFriendlyUrl" ColumnName="UserFriendlyUrl" />
+                <ScalarProperty Name="ViewPath" ColumnName="ViewPath" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="VoteCount" ColumnName="VoteCount" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentCategories">
+            <EntityTypeMapping TypeName="Labo.TwitterMiner.Video.Data.ContentCategory">
+              <MappingFragment StoreEntitySet="ContentCategory">
+                <ScalarProperty Name="UserFriendlyUrl" ColumnName="UserFriendlyUrl" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContentTags">
+            <EntityTypeMapping TypeName="Labo.TwitterMiner.Video.Data.ContentTag">
+              <MappingFragment StoreEntitySet="ContentTag">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoContents">
+            <EntityTypeMapping TypeName="Labo.TwitterMiner.Video.Data.VideoContent">
+              <MappingFragment StoreEntitySet="VideoContent">
+                <ScalarProperty Name="ContentID" ColumnName="ContentID" />
+                <ScalarProperty Name="ProviderID" ColumnName="ProviderID" />
+                <ScalarProperty Name="EmbedUrl" ColumnName="EmbedUrl" />
+                <ScalarProperty Name="ProviderViewCount" ColumnName="ProviderViewCount" />
+                <ScalarProperty Name="ProviderRating" ColumnName="ProviderRating" />
+                <ScalarProperty Name="ProviderUniqueID" ColumnName="ProviderUniqueID" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Uploader" ColumnName="Uploader" />
+                <ScalarProperty Name="BigPicture" ColumnName="BigPicture" />
+                <ScalarProperty Name="SmallPicture" ColumnName="SmallPicture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProviderVoteCount" ColumnName="ProviderVoteCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VideoProviders">
+            <EntityTypeMapping TypeName="Labo.TwitterMiner.Video.Data.VideoProvider">
+              <MappingFragment StoreEntitySet="VideoProvider">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EmbedVideoFormat" ColumnName="EmbedVideoFormat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ContentToTag" TypeName="Labo.TwitterMiner.Video.Data.ContentToTag" StoreEntitySet="ContentToTag">
+            <EndProperty Name="Content">
+              <ScalarProperty Name="ID" ColumnName="ContentID" />
+            </EndProperty>
+            <EndProperty Name="ContentTag">
+              <ScalarProperty Name="ID" ColumnName="TagID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="VideoDbContext">
+        <EntityTypeShape EntityType="Labo.TwitterMiner.Video.Data.Content" Width="1.5" PointX="3" PointY="2.625" Height="4.2879036458333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="Labo.TwitterMiner.Video.Data.ContentCategory" Width="1.5" PointX="0.75" PointY="3.375" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Labo.TwitterMiner.Video.Data.ContentTag" Width="1.5" PointX="5.25" PointY="4" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Labo.TwitterMiner.Video.Data.VideoContent" Width="1.5" PointX="8.25" PointY="2.75" Height="3.9033007812499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Labo.TwitterMiner.Video.Data.VideoProvider" Width="1.5" PointX="6" PointY="0.75" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="Labo.TwitterMiner.Video.Data.FK_content_contentcategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.74974609375" />
+          <ConnectorPoint PointX="3" PointY="4.74974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Labo.TwitterMiner.Video.Data.FK_VideoContent_Content" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="3.34375" />
+          <ConnectorPoint PointX="8.25" PointY="3.34375" />
+        </AssociationConnector>
+        <AssociationConnector Association="Labo.TwitterMiner.Video.Data.FK_ContentCategory_ContentCategory" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.1244921875" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.3744921875" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.3744921875" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.1244921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="Labo.TwitterMiner.Video.Data.FK_VideoContent_VideoProvider" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.5" PointY="1.7401432291666668" />
+          <ConnectorPoint PointX="9" PointY="1.7401432291666668" />
+          <ConnectorPoint PointX="9" PointY="2.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="Labo.TwitterMiner.Video.Data.ContentToTag" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.797841796875" />
+          <ConnectorPoint PointX="5.25" PointY="4.797841796875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
